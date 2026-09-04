@@ -1,155 +1,657 @@
+```html
 <!DOCTYPE html>
-<!--
-  ================================================================
-  READ THIS BEFORE YOU PASTE ANYTHING
-
-  When Gemini gives you a page, you do NOT paste it into a part of
-  this file. You replace the entire file.
-
-  Click into the editor, press Ctrl+A (Cmd+A on Mac), press Delete,
-  then paste. Everything here is meant to be thrown away.
-
-  Do that only AFTER your live link works. Get the link first.
-  ================================================================
--->
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>My first site</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Unbounded:wght@600;800&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --navy: #0d1d30;
-    --card: #142a44;
-    --line: #27466a;
-    --aqua: #6de1d7;
-    --text: #ffffff;
-    --muted: #94a9bf;
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    background: var(--navy);
-    color: var(--text);
-    font-family: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
-    line-height: 1.6;
-    display: flex;
-    justify-content: center;
-    padding: 6vh 20px;
-  }
-  main { width: 100%; max-width: 640px; }
-  .badge {
-    display: inline-block;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--aqua);
-    margin-bottom: 18px;
-  }
-  h1 {
-    font-family: "Unbounded", "Manrope", sans-serif;
-    font-weight: 800;
-    font-size: clamp(38px, 9vw, 68px);
-    letter-spacing: -0.05em;
-    line-height: 1.02;
-    margin: 0 0 8px;
-  }
-  .name {
-    font-family: "Unbounded", "Manrope", sans-serif;
-    font-weight: 600;
-    font-size: clamp(18px, 4vw, 24px);
-    letter-spacing: -0.04em;
-    color: var(--aqua);
-    margin: 0 0 24px;
-  }
-  p.lead { font-size: 18px; color: var(--muted); margin: 0 0 34px; }
-  .card {
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: 12px;
-    padding: 26px 28px;
-    margin-bottom: 18px;
-  }
-  .card h2 {
-    font-family: "Unbounded", "Manrope", sans-serif;
-    font-weight: 600;
-    font-size: 15px;
-    letter-spacing: -0.03em;
-    text-transform: uppercase;
-    color: var(--aqua);
-    margin: 0 0 16px;
-  }
-  ol { margin: 0; padding-left: 20px; }
-  li { margin-bottom: 12px; color: var(--muted); }
-  li:last-child { margin-bottom: 0; }
-  li b { color: var(--text); font-weight: 700; }
-  code {
-    font-family: ui-monospace, "SF Mono", Consolas, monospace;
-    font-size: 0.92em;
-    background: #0a1727;
-    border: 1px solid var(--line);
-    border-radius: 5px;
-    padding: 1px 6px;
-    color: var(--aqua);
-  }
-  a { color: var(--aqua); }
-  footer {
-    margin-top: 30px;
-    font-size: 14px;
-    color: #6e839a;
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NutriTrack | Personal Food & Macro Tracker</title>
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg: #0f172a;
+            --surface: #1e293b;
+            --surface-hover: #334155;
+            --surface-border: #334155;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-primary: #10b981;
+            --accent-primary-hover: #059669;
+            --calories-color: #f59e0b;
+            --protein-color: #ef4444;
+            --carbs-color: #3b82f6;
+            --fat-color: #10b981;
+            --radius-lg: 16px;
+            --radius-md: 12px;
+            --radius-sm: 8px;
+            --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 2rem 1rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 1100px;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--surface);
+            padding: 1.5rem 2rem;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--surface-border);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .brand-icon {
+            background: var(--accent-primary);
+            color: #000;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.25rem;
+        }
+
+        .brand h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .date-display {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Dashboard Overview */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .summary-card {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            border: 1px solid var(--surface-border);
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .summary-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+        }
+
+        .summary-card.calories::before { background-color: var(--calories-color); }
+        .summary-card.protein::before { background-color: var(--protein-color); }
+        .summary-card.carbs::before { background-color: var(--carbs-color); }
+        .summary-card.fat::before { background-color: var(--fat-color); }
+
+        .card-label {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .card-value {
+            font-size: 2rem;
+            font-weight: 800;
+            display: flex;
+            align-items: baseline;
+            gap: 0.25rem;
+        }
+
+        .card-value span {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        .progress-bar-bg {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: auto;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.4s ease;
+        }
+
+        /* Main Content Layout */
+        .main-layout {
+            display: grid;
+            grid-template-columns: 360px 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 900px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Form Styling */
+        .form-card {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            border: 1px solid var(--surface-border);
+            height: fit-content;
+        }
+
+        .form-card h2 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .form-control {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--surface-border);
+            border-radius: var(--radius-sm);
+            padding: 0.75rem 1rem;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            border-color: var(--accent-primary);
+        }
+
+        .file-upload-wrapper {
+            position: relative;
+            border: 2px dashed var(--surface-border);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            background: rgba(0, 0, 0, 0.1);
+            margin-bottom: 1rem;
+        }
+
+        .file-upload-wrapper:hover {
+            border-color: var(--accent-primary);
+            background: rgba(16, 185, 129, 0.05);
+        }
+
+        .file-upload-wrapper input[type="file"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .upload-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .upload-text {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .image-preview {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            border-radius: var(--radius-sm);
+            display: none;
+            margin-bottom: 1rem;
+        }
+
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 0.85rem;
+            background: var(--accent-primary);
+            color: #000;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 0.5rem;
+        }
+
+        .btn:hover {
+            background: var(--accent-primary-hover);
+        }
+
+        /* Food List */
+        .logs-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .logs-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logs-header h2 {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .empty-state {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            border: 1px dashed var(--surface-border);
+            padding: 3rem;
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        .food-card {
+            background: var(--surface);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--surface-border);
+            padding: 1rem;
+            display: grid;
+            grid-template-columns: 80px 1fr auto;
+            gap: 1rem;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .food-card:hover {
+            border-color: var(--surface-hover);
+            transform: translateY(-2px);
+        }
+
+        .food-img {
+            width: 80px;
+            height: 80px;
+            border-radius: var(--radius-sm);
+            object-fit: cover;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+        }
+
+        .food-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+
+        .food-title {
+            font-weight: 700;
+            font-size: 1.05rem;
+        }
+
+        .food-meta {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .macro-pills {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 0.25rem;
+        }
+
+        .pill {
+            font-size: 0.75rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .pill.cal { color: var(--calories-color); background: rgba(245, 158, 11, 0.1); }
+        .pill.pro { color: var(--protein-color); background: rgba(239, 68, 68, 0.1); }
+        .pill.carb { color: var(--carbs-color); background: rgba(59, 130, 246, 0.1); }
+        .pill.fat { color: var(--fat-color); background: rgba(16, 185, 129, 0.1); }
+
+        .delete-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: var(--radius-sm);
+            transition: var(--transition);
+        }
+
+        .delete-btn:hover {
+            color: #ef4444;
+            background: rgba(239, 68, 68, 0.1);
+        }
+    </style>
 </head>
 <body>
-<main>
 
-  <span class="badge">Cal Poly Vibe Coding &middot; Session 01</span>
+    <div class="app-container">
+        <!-- Header -->
+        <header>
+            <div class="brand">
+                <div class="brand-icon">N</div>
+                <h1>NutriTrack</h1>
+            </div>
+            <div class="date-display" id="current-date">Today</div>
+        </header>
 
-  <h1>It&rsquo;s live.</h1>
+        <!-- Dashboard Summaries -->
+        <div class="dashboard-grid">
+            <div class="summary-card calories">
+                <div class="card-label">Calories</div>
+                <div class="card-value"><span id="total-calories">0</span> <span>/ 2,000 kcal</span></div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="progress-calories" style="width: 0%; background-color: var(--calories-color);"></div>
+                </div>
+            </div>
 
-  <!-- Step 5: change the name below to yours, then commit. -->
-  <p class="name">Built by Matthew Kaull</p>
+            <div class="summary-card protein">
+                <div class="card-label">Protein</div>
+                <div class="card-value"><span id="total-protein">0</span> <span>/ 150g</span></div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="progress-protein" style="width: 0%; background-color: var(--protein-color);"></div>
+                </div>
+            </div>
 
-  <p class="lead">
-    This page is on the internet. Anyone you send this link to can open it,
-    on any device, right now. You made that happen in about five minutes.
-  </p>
+            <div class="summary-card carbs">
+                <div class="card-label">Carbs</div>
+                <div class="card-value"><span id="total-carbs">0</span> <span>/ 200g</span></div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="progress-carbs" style="width: 0%; background-color: var(--carbs-color);"></div>
+                </div>
+            </div>
 
-  <div class="card">
-    <h2>Three things, in this order</h2>
-    <ol>
-      <li><b>Put your name on it.</b> Edit <code>index.html</code>, change
-        YOUR NAME HERE above, commit, refresh this page.</li>
-      <li><b>Submit this link.</b> Go to
-        <a href="https://www.calpolyvibecoding.com/">calpolyvibecoding.com</a>,
-        make an account, and paste this URL in. That is how you get counted,
-        and how Claude seats get assigned.</li>
-      <li><b>Then build.</b> Open Gemini, get a page, and replace this entire
-        file with it.</li>
-    </ol>
-  </div>
+            <div class="summary-card fat">
+                <div class="card-label">Fats</div>
+                <div class="card-value"><span id="total-fat">0</span> <span>/ 65g</span></div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="progress-fat" style="width: 0%; background-color: var(--fat-color);"></div>
+                </div>
+            </div>
+        </div>
 
-  <div class="card">
-    <h2>How to replace this page</h2>
-    <ol>
-      <li>Copy what Gemini gives you with the <b>copy button</b> on the code
-        block. Do not click and drag.</li>
-      <li>Open <code>index.html</code> here and click the pencil icon.</li>
-      <li><b>Ctrl+A</b> (<b>Cmd+A</b> on Mac), then <b>Delete</b>. All of it.
-        Yes, really.</li>
-      <li>Paste, commit, refresh.</li>
-    </ol>
-  </div>
+        <!-- Main Content Area -->
+        <div class="main-layout">
+            <!-- Form Side -->
+            <div class="form-card">
+                <h2>Log Food Item</h2>
+                <form id="food-form">
+                    <div class="file-upload-wrapper" id="drop-area">
+                        <span class="upload-icon">📷</span>
+                        <div class="upload-text" id="upload-text">Upload food photo</div>
+                        <input type="file" id="food-image" accept="image/*" required>
+                    </div>
+                    <img id="image-preview" class="image-preview" alt="Preview">
 
-  <footer>
-    Nothing on this page is precious. It exists so the link has something to
-    show before you have something of your own.
-  </footer>
+                    <div class="form-group">
+                        <label for="food-name">Food Name</label>
+                        <input type="text" id="food-name" class="form-control" placeholder="e.g., Grilled Chicken Salad" required>
+                    </div>
 
-</main>
+                    <div class="form-group">
+                        <label for="calories">Calories (kcal)</label>
+                        <input type="number" id="calories" class="form-control" placeholder="0" min="0" required>
+                    </div>
+
+                    <div class="grid-2col">
+                        <div class="form-group">
+                            <label for="protein">Protein (g)</label>
+                            <input type="number" id="protein" class="form-control" placeholder="0" min="0" step="0.1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="carbs">Carbs (g)</label>
+                            <input type="number" id="carbs" class="form-control" placeholder="0" min="0" step="0.1" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fat">Fat (g)</label>
+                        <input type="number" id="fat" class="form-control" placeholder="0" min="0" step="0.1" required>
+                    </div>
+
+                    <button type="submit" class="btn">Add Log Entry</button>
+                </form>
+            </div>
+
+            <!-- List Side -->
+            <div class="logs-container">
+                <div class="logs-header">
+                    <h2>Today's Logs</h2>
+                </div>
+                
+                <div id="food-list">
+                    <!-- Logs inserted here dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Goals Configuration
+        const GOALS = {
+            calories: 2000,
+            protein: 150,
+            carbs: 200,
+            fat: 65
+        };
+
+        // State Management
+        let foodLogs = JSON.parse(localStorage.getItem('nutriTrack_logs')) || [];
+        let currentImageBase64 = '';
+
+        // DOM Elements
+        const foodForm = document.getElementById('food-form');
+        const foodImageInput = document.getElementById('food-image');
+        const imagePreview = document.getElementById('image-preview');
+        const uploadText = document.getElementById('upload-text');
+        const foodList = document.getElementById('food-list');
+        const currentDateEl = document.getElementById('current-date');
+
+        // Set Current Date
+        currentDateEl.textContent = new Date().toLocaleDateString('en-US', { 
+            weekday: 'short', 
+            month: 'short', 
+            day: 'numeric' 
+        });
+
+        // Handle Image Upload & Conversion to Base64
+        foodImageInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    currentImageBase64 = event.target.result;
+                    imagePreview.src = currentImageBase64;
+                    imagePreview.style.display = 'block';
+                    uploadText.textContent = "Change photo";
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Handle Form Submission
+        foodForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const newLog = {
+                id: Date.now(),
+                name: document.getElementById('food-name').value,
+                calories: parseFloat(document.getElementById('calories').value) || 0,
+                protein: parseFloat(document.getElementById('protein').value) || 0,
+                carbs: parseFloat(document.getElementById('carbs').value) || 0,
+                fat: parseFloat(document.getElementById('fat').value) || 0,
+                image: currentImageBase64,
+                timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+            };
+
+            foodLogs.unshift(newLog);
+            saveAndRender();
+
+            // Reset Form
+            foodForm.reset();
+            imagePreview.style.display = 'none';
+            uploadText.textContent = "Upload food photo";
+            currentImageBase64 = '';
+        });
+
+        // Delete Log Entry
+        function deleteLog(id) {
+            foodLogs = foodLogs.filter(log => log.id !== id);
+            saveAndRender();
+        }
+
+        // Save to LocalStorage and Trigger Renders
+        function saveAndRender() {
+            localStorage.setItem('nutriTrack_logs', JSON.stringify(foodLogs));
+            renderDashboard();
+            renderLogs();
+        }
+
+        // Calculate and Render Dashboard Summaries
+        function renderDashboard() {
+            const totals = foodLogs.reduce((acc, item) => {
+                acc.calories += item.calories;
+                acc.protein += item.protein;
+                acc.carbs += item.carbs;
+                acc.fat += item.fat;
+                return acc;
+            }, { calories: 0, protein: 0, carbs: 0, fat: 0 });
+
+            // Update text counters
+            document.getElementById('total-calories').textContent = Math.round(totals.calories);
+            document.getElementById('total-protein').textContent = Math.round(totals.protein);
+            document.getElementById('total-carbs').textContent = Math.round(totals.carbs);
+            document.getElementById('total-fat').textContent = Math.round(totals.fat);
+
+            // Update Progress Bars
+            document.getElementById('progress-calories').style.width = `${Math.min((totals.calories / GOALS.calories) * 100, 100)}%`;
+            document.getElementById('progress-protein').style.width = `${Math.min((totals.protein / GOALS.protein) * 100, 100)}%`;
+            document.getElementById('progress-carbs').style.width = `${Math.min((totals.carbs / GOALS.carbs) * 100, 100)}%`;
+            document.getElementById('progress-fat').style.width = `${Math.min((totals.fat / GOALS.fat) * 100, 100)}%`;
+        }
+
+        // Render Food List
+        function renderLogs() {
+            if (foodLogs.length === 0) {
+                foodList.innerHTML = `
+                    <div class="empty-state">
+                        <p>No food logged today yet.</p>
+                        <p style="font-size: 0.85rem; margin-top: 0.5rem;">Use the form to add your first meal!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            foodList.innerHTML = foodLogs.map(item => `
+                <div class="food-card">
+                    ${item.image ? `<img src="${item.image}" class="food-img" alt="${item.name}">` : '<div class="food-img">No Image</div>'}
+                    <div class="food-info">
+                        <div class="food-title">${escapeHtml(item.name)}</div>
+                        <div class="food-meta">Logged at ${item.timestamp}</div>
+                        <div class="macro-pills">
+                            <span class="pill cal">${item.calories} kcal</span>
+                            <span class="pill pro">P: ${item.protein}g</span>
+                            <span class="pill carb">C: ${item.carbs}g</span>
+                            <span class="pill fat">F: ${item.fat}g</span>
+                        </div>
+                    </div>
+                    <button class="delete-btn" onclick="deleteLog(${item.id})" title="Delete entry">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="3 6 5 6 21 6"></polyline>
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                        </svg>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        // Helper to prevent XSS
+        function escapeHtml(str) {
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+        }
+
+        // Initial Load
+        saveAndRender();
+    </script>
 </body>
 </html>
+
+```
