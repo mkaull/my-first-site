@@ -26,6 +26,8 @@
       
       --accent-fat: #F59E0B;
       --accent-fat-glow: rgba(245, 158, 11, 0.25);
+
+      --accent-water: #06B6D4;
       
       --text-main: #F9FAFB;
       --text-sub: #9CA3AF;
@@ -37,6 +39,210 @@
       --radius-full: 9999px;
 
       --spring-transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      min-height: 100vh;
+      width: 100vw;
+      display: flex;
+      justify-content: center;
+      padding: 16px;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.12) 0%, transparent 65%),
+        radial-gradient(circle at 100% 100%, rgba(59, 130, 246, 0.05) 0%, transparent 50%);
+      background-attachment: fixed;
+    }
+
+    .app-container {
+      width: 100%;
+      max-width: 1280px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding-bottom: 40px;
+    }
+
+    /* Multi-column grid for tablet & desktop to fill screen */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      width: 100%;
+    }
+
+    @media (min-width: 900px) {
+      .dashboard-grid {
+        grid-template-columns: 1.1fr 0.9fr;
+      }
+    }
+
+    .column-left, .column-right {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Header & Interactive User Profile Bar */
+    .app-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 4px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .pulse-logo {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--accent-emerald), #059669);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 16px var(--accent-emerald-glow);
+    }
+
+    .pulse-logo svg {
+      width: 22px;
+      height: 22px;
+      fill: #000;
+    }
+
+    .brand-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      background: linear-gradient(to right, #ffffff, #a7f3d0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Interactive User Badge with Modal Trigger */
+    .user-badge {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-emerald);
+      padding: 8px 16px;
+      border-radius: var(--radius-full);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-main);
+      cursor: pointer;
+      transition: var(--spring-transition);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    .user-badge:hover {
+      background: rgba(16, 185, 129, 0.15);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px var(--accent-emerald-glow);
+    }
+
+    .user-badge:active {
+      transform: scale(0.96);
+    }
+
+    .user-avatar {
+      width: 26px;
+      height: 26px;
+      background: var(--accent-emerald-bright);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #000;
+      font-weight: 800;
+      font-size: 0.8rem;
+    }
+
+    .user-badge .edit-hint {
+      font-size: 0.65rem;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 2px 6px;
+      border-radius: var(--radius-sm);
+      color: var(--accent-emerald-bright);
+    }
+
+    /* Streak & Hydration Widgets */
+    .quick-stats-bar {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .stat-widget-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      cursor: pointer;
+      transition: var(--spring-transition);
+    }
+
+    .stat-widget-card:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .widget-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .widget-title {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--text-sub);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .widget-val {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .widget-action-btn {
+      background: rgba(6, 182, 212, 0.15);
+      color: var(--accent-water);
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 0.75rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: var(--spring-transition);
+    }
+
+    .widget-action-btn:active {
+      transform: scale(0.92);
     }
 
     * {
@@ -727,72 +933,7 @@
     .input-field {
       background: var(--bg-inset);
       border: 1px solid var(--border-light);
-      border-radius: var(--radius-md);
-      padding: 10px 12px;
-      color: #fff;
-      font-size: 0.9rem;
-      outline: none;
-    }
-
-    .input-field:focus {
-      border-color: var(--accent-emerald);
-    }
-
-    .grid-inputs {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-    }
-
-    /* Floating Feedback Toast */
-    .toast {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%) translateY(100px);
-      background: rgba(16, 185, 129, 0.95);
-      color: #000;
-      padding: 10px 20px;
-      border-radius: var(--radius-full);
-      font-weight: 800;
-      font-size: 0.85rem;
-      box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4);
-      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-      z-index: 200;
-      pointer-events: none;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .toast.show {
-      transform: translateX(-50%) translateY(0);
-    }
-  </style>
-</head>
-<body>
-
-  <div class="app-container">
-    
-    <!-- Header -->
-    <header class="app-header">
-      <div class="brand">
-        <div class="pulse-logo">
-          <svg viewBox="0 0 24 24">
-            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
-          </svg>
-        </div>
-        <div>
-          <h1 class="brand-title">MACROPULSE</h1>
-        </div>
-      </div>
-      <div class="user-badge">
-        <div class="user-avatar">M</div>
-        <span>Matthew (Athlete Mode)</span>
-      </div>
-    </header>
-
-    <!-- Goal Switcher Header -->
+    <!-- Goal Switcher Controls -->
     <section class="goal-selector-card">
       <div class="goal-switcher">
         <button class="goal-btn active" onclick="setGoal('cut')" id="btn-cut">
@@ -810,160 +951,225 @@
       </div>
     </section>
 
-    <!-- Summary Ring Dashboard -->
-    <section class="dashboard-card">
-      <div class="dashboard-main">
-        <div class="ring-container">
-          <svg class="ring-svg" viewBox="0 0 120 120">
-            <circle class="ring-bg" cx="60" cy="60" r="52" fill="none"/>
-            <circle class="ring-progress" id="cal-ring" cx="60" cy="60" r="52" fill="none"/>
-          </svg>
-          <div class="ring-content">
-            <div class="ring-val" id="cal-percent">0%</div>
-            <div class="ring-lbl">Target</div>
-          </div>
-        </div>
+    <!-- Full-Width Responsive Dashboard Layout -->
+    <div class="dashboard-grid">
+      
+      <!-- Left Column: Summary Dashboard & Quick Log Presets -->
+      <div class="column-left">
+        
+        <!-- Summary Ring Dashboard -->
+        <section class="dashboard-card">
+          <div class="dashboard-main">
+            <div class="ring-container">
+              <svg class="ring-svg" viewBox="0 0 120 120">
+                <circle class="ring-bg" cx="60" cy="60" r="52" fill="none"/>
+                <circle class="ring-progress" id="cal-ring" cx="60" cy="60" r="52" fill="none"/>
+              </svg>
+              <div class="ring-content">
+                <div class="ring-val" id="cal-percent">0%</div>
+                <div class="ring-lbl">Target</div>
+              </div>
+            </div>
 
-        <div class="cal-summary">
-          <div class="target-badge" id="goal-badge">CUT MODE • 2,000 KCAL</div>
-          <div class="remaining-cal">
-            <span id="cal-remaining">2,000</span>
-            <span class="unit">kcal left</span>
+            <div class="cal-summary">
+              <div class="target-badge" id="goal-badge">CUT MODE • 2,000 KCAL</div>
+              <div class="remaining-cal">
+                <span id="cal-remaining">2,000</span>
+                <span class="unit">kcal left</span>
+              </div>
+              <div class="cal-subtext">
+                <span>Eaten: <strong id="cal-consumed">0</strong></span>
+                <span>Target: <strong id="cal-target">2000</strong></span>
+              </div>
+            </div>
           </div>
-          <div class="cal-subtext">
-            <span>Eaten: <strong id="cal-consumed">0</strong></span>
-            <span>Target: <strong id="cal-target">2000</strong></span>
+
+          <!-- Macro Breakdown Bars -->
+          <div class="macros-grid">
+            <!-- Protein -->
+            <div class="macro-bar-card macro-p">
+              <div class="macro-header">
+                <span class="macro-title">PROTEIN</span>
+                <span class="macro-rem" id="p-rem">180g left</span>
+              </div>
+              <div class="progress-track">
+                <div class="progress-fill" id="p-bar"></div>
+              </div>
+              <div class="macro-details">
+                <span id="p-eaten">0g</span>
+                <span id="p-target">180g</span>
+              </div>
+            </div>
+
+            <!-- Carbs -->
+            <div class="macro-bar-card macro-c">
+              <div class="macro-header">
+                <span class="macro-title">CARBS</span>
+                <span class="macro-rem" id="c-rem">170g left</span>
+              </div>
+              <div class="progress-track">
+                <div class="progress-fill" id="c-bar"></div>
+              </div>
+              <div class="macro-details">
+                <span id="c-eaten">0g</span>
+                <span id="c-target">170g</span>
+              </div>
+            </div>
+
+            <!-- Fat -->
+            <div class="macro-bar-card macro-f">
+              <div class="macro-header">
+                <span class="macro-title">FAT</span>
+                <span class="macro-rem" id="f-rem">55g left</span>
+              </div>
+              <div class="progress-track">
+                <div class="progress-fill" id="f-bar"></div>
+              </div>
+              <div class="macro-details">
+                <span id="f-eaten">0g</span>
+                <span id="f-target">55g</span>
+              </div>
+            </div>
           </div>
-        </div>
+        </section>
+
+        <!-- Hydration & Streak Interactive Widget Row -->
+        <section class="quick-stats-bar">
+          <div class="stat-widget-card" onclick="openProfileModal()">
+            <div class="widget-info">
+              <span class="widget-title">🔥 Daily Streak</span>
+              <span class="widget-val" id="streak-count">14 Days</span>
+            </div>
+            <span style="font-size: 1.4rem;">⚡</span>
+          </div>
+
+          <div class="stat-widget-card" style="border-color: rgba(6, 182, 212, 0.25);">
+            <div class="widget-info">
+              <span class="widget-title">💧 Hydration</span>
+              <span class="widget-val" id="water-val">1.2 / 3.0 L</span>
+            </div>
+            <button class="widget-action-btn" onclick="addWater(0.25, event)">+250ml</button>
+          </div>
+        </section>
+
+        <!-- Quick Log Action Section -->
+        <section>
+          <div class="section-title-bar" style="margin-bottom: 10px;">
+            <h2 class="section-title">
+              Quick-Log Campus Meals
+              <span class="quick-tag">1-TAP LOG</span>
+            </h2>
+          </div>
+
+          <div class="presets-grid">
+            <button class="preset-card" onclick="quickLog('Chicken & Rice Bowl', 650, 48, 70, 12, '🍗')">
+              <div class="preset-header">
+                <span class="preset-icon">🍗</span>
+                <span class="preset-cal">650 kcal</span>
+              </div>
+              <div class="preset-name">Chicken & Rice Bowl</div>
+              <div class="preset-macros">48g P • 70g C • 12g F</div>
+              <div class="preset-tap-hint">⚡ + Tap to log</div>
+            </button>
+
+            <button class="preset-card" onclick="quickLog('Eggs & Avocado Toast', 420, 24, 32, 22, '🍳')">
+              <div class="preset-header">
+                <span class="preset-icon">🍳</span>
+                <span class="preset-cal">420 kcal</span>
+              </div>
+              <div class="preset-name">Eggs & Avocado Toast</div>
+              <div class="preset-macros">24g P • 32g C • 22g F</div>
+              <div class="preset-tap-hint">⚡ + Tap to log</div>
+            </button>
+
+            <button class="preset-card" onclick="quickLog('Whey Shake + Banana', 320, 34, 38, 4, '🥛')">
+              <div class="preset-header">
+                <span class="preset-icon">🥛</span>
+                <span class="preset-cal">320 kcal</span>
+              </div>
+              <div class="preset-name">Whey Shake + Banana</div>
+              <div class="preset-macros">34g P • 38g C • 4g F</div>
+              <div class="preset-tap-hint">⚡ + Tap to log</div>
+            </button>
+
+            <button class="preset-card" onclick="quickLog('Steak Burrito Bowl', 820, 52, 78, 28, '🌯')">
+              <div class="preset-header">
+                <span class="preset-icon">🌯</span>
+                <span class="preset-cal">820 kcal</span>
+              </div>
+              <div class="preset-name">Steak Burrito Bowl</div>
+              <div class="preset-macros">52g P • 78g C • 28g F</div>
+              <div class="preset-tap-hint">⚡ + Tap to log</div>
+            </button>
+          </div>
+        </section>
+
+      </div> <!-- End Column Left -->
+
+      <!-- Right Column: Interactive Today's Food Log & Actions -->
+      <div class="column-right">
+        
+        <!-- Quick Macros & Custom Add Actions -->
+        <section class="quick-actions-row">
+          <button class="btn-secondary" onclick="quickAddProtein()">
+            ⚡ +25g Protein
+          </button>
+          <button class="btn-primary" onclick="openModal()">
+            + Custom Food Entry
+          </button>
+        </section>
+
+        <!-- Interactive Food Log Cards -->
+        <section class="log-container" style="flex: 1;">
+          <div class="log-header">
+            <h2 class="section-title">Today's Log Timeline</h2>
+            <button class="clear-btn" onclick="clearLog()">Reset Day</button>
+          </div>
+
+          <div class="log-list" id="log-list" style="max-height: 480px;">
+            <!-- Dynamic Log Cards Inserted Here -->
+          </div>
+        </section>
+
+      </div> <!-- End Column Right -->
+
+    </div> <!-- End Dashboard Grid -->
+
+  </div> <!-- End App Container -->
+
+  <!-- Modal Interactive Profile & Athlete Settings -->
+  <div class="modal-overlay" id="profile-modal">
+    <div class="modal-card">
+      <h3 style="font-size: 1.1rem; font-weight: 800; display: flex; justify-content: space-between; align-items: center;">
+        Athlete Settings & Mode
+        <span style="font-size: 0.8rem; color: var(--accent-emerald-bright); font-weight: 700;">⚙️ Customizer</span>
+      </h3>
+
+      <div class="input-group">
+        <label>Athlete Name</label>
+        <input type="text" id="user-name-input" class="input-field" value="Matthew">
       </div>
 
-      <!-- Macro Breakdown Bars -->
-      <div class="macros-grid">
-        <!-- Protein -->
-        <div class="macro-bar-card macro-p">
-          <div class="macro-header">
-            <span class="macro-title">PROTEIN</span>
-            <span class="macro-rem" id="p-rem">180g left</span>
-          </div>
-          <div class="progress-track">
-            <div class="progress-fill" id="p-bar"></div>
-          </div>
-          <div class="macro-details">
-            <span id="p-eaten">0g</span>
-            <span id="p-target">180g</span>
-          </div>
-        </div>
-
-        <!-- Carbs -->
-        <div class="macro-bar-card macro-c">
-          <div class="macro-header">
-            <span class="macro-title">CARBS</span>
-            <span class="macro-rem" id="c-rem">170g left</span>
-          </div>
-          <div class="progress-track">
-            <div class="progress-fill" id="c-bar"></div>
-          </div>
-          <div class="macro-details">
-            <span id="c-eaten">0g</span>
-            <span id="c-target">170g</span>
-          </div>
-        </div>
-
-        <!-- Fat -->
-        <div class="macro-bar-card macro-f">
-          <div class="macro-header">
-            <span class="macro-title">FAT</span>
-            <span class="macro-rem" id="f-rem">55g left</span>
-          </div>
-          <div class="progress-track">
-            <div class="progress-fill" id="f-bar"></div>
-          </div>
-          <div class="macro-details">
-            <span id="f-eaten">0g</span>
-            <span id="f-target">55g</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Quick Log Action Section -->
-    <section>
-      <div class="section-title-bar" style="margin-bottom: 10px;">
-        <h2 class="section-title">
-          Quick-Log Campus Meals
-          <span class="quick-tag">1-TAP LOG</span>
-        </h2>
+      <div class="input-group">
+        <label>Training Mode / Profile</label>
+        <select id="user-mode-select" class="input-field" style="background: var(--bg-inset); color: #fff;">
+          <option value="Athlete Mode">Athlete Mode (High Intensity)</option>
+          <option value="Hypertrophy / Lift Mode">Hypertrophy / Lift Mode</option>
+          <option value="Endurance Runner Mode">Endurance Runner Mode</option>
+          <option value="Study & Rest Mode">Study & Rest Mode</option>
+        </select>
       </div>
 
-      <div class="presets-grid">
-        <!-- Chicken & Rice -->
-        <button class="preset-card" onclick="quickLog('Chicken & Rice Bowl', 650, 48, 70, 12, '🍗')">
-          <div class="preset-header">
-            <span class="preset-icon">🍗</span>
-            <span class="preset-cal">650 kcal</span>
-          </div>
-          <div class="preset-name">Chicken & Rice Bowl</div>
-          <div class="preset-macros">48g P • 70g C • 12g F</div>
-          <div class="preset-tap-hint">⚡ + Tap to log</div>
-        </button>
-
-        <!-- Eggs & Toast -->
-        <button class="preset-card" onclick="quickLog('Eggs & Avocado Toast', 420, 24, 32, 22, '🍳')">
-          <div class="preset-header">
-            <span class="preset-icon">🍳</span>
-            <span class="preset-cal">420 kcal</span>
-          </div>
-          <div class="preset-name">Eggs & Avocado Toast</div>
-          <div class="preset-macros">24g P • 32g C • 22g F</div>
-          <div class="preset-tap-hint">⚡ + Tap to log</div>
-        </button>
-
-        <!-- Whey Shake -->
-        <button class="preset-card" onclick="quickLog('Whey Shake + Banana', 320, 34, 38, 4, '🥛')">
-          <div class="preset-header">
-            <span class="preset-icon">🥛</span>
-            <span class="preset-cal">320 kcal</span>
-          </div>
-          <div class="preset-name">Whey Shake + Banana</div>
-          <div class="preset-macros">34g P • 38g C • 4g F</div>
-          <div class="preset-tap-hint">⚡ + Tap to log</div>
-        </button>
-
-        <!-- Chipotle Burrito -->
-        <button class="preset-card" onclick="quickLog('Steak Burrito Bowl', 820, 52, 78, 28, '🌯')">
-          <div class="preset-header">
-            <span class="preset-icon">🌯</span>
-            <span class="preset-cal">820 kcal</span>
-          </div>
-          <div class="preset-name">Steak Burrito Bowl</div>
-          <div class="preset-macros">52g P • 78g C • 28g F</div>
-          <div class="preset-tap-hint">⚡ + Tap to log</div>
-        </button>
-      </div>
-    </section>
-
-    <!-- Quick Macros & Custom Add Actions -->
-    <section class="quick-actions-row">
-      <button class="btn-secondary" onclick="quickAddProtein()">
-        ⚡ +25g Protein
-      </button>
-      <button class="btn-primary" onclick="openModal()">
-        + Custom Food Entry
-      </button>
-    </section>
-
-    <!-- Interactive Food Log Cards -->
-    <section class="log-container">
-      <div class="log-header">
-        <h2 class="section-title">Today's Log</h2>
-        <button class="clear-btn" onclick="clearLog()">Reset Day</button>
+      <div class="input-group">
+        <label>Body Weight (lbs) — Auto-scales Protein Target</label>
+        <input type="number" id="user-weight-input" class="input-field" value="175">
       </div>
 
-      <div class="log-list" id="log-list">
-        <!-- Dynamic Log Cards Inserted Here -->
+      <div style="display: flex; gap: 8px; margin-top: 10px;">
+        <button class="btn-secondary" onclick="closeProfileModal()">Cancel</button>
+        <button class="btn-primary" style="flex:1;" onclick="saveProfileSettings()">Save & Recalculate</button>
       </div>
-    </section>
-
+    </div>
   </div>
 
   <!-- Modal Custom Entry -->
@@ -1009,30 +1215,44 @@
   </div>
 
   <script>
-    // Goal Presets tailored for Matthew (Active Student Athlete ~175lbs)
-    const GOAL_PRESETS = {
-      cut: {
-        name: 'CUT MODE',
-        calories: 2000,
-        protein: 180,
-        carbs: 170,
-        fat: 55
-      },
-      recomp: {
-        name: 'RECOMP MODE',
-        calories: 2450,
-        protein: 175,
-        carbs: 240,
-        fat: 65
-      },
-      bulk: {
-        name: 'BULK MODE',
-        calories: 2950,
-        protein: 185,
-        carbs: 330,
-        fat: 75
-      }
+    // Dynamic Athlete Presets & User Profile State
+    let userProfile = {
+      name: 'Matthew',
+      mode: 'Athlete Mode',
+      weight: 175
     };
+
+    let waterIntake = 1.2; // Liters
+    const waterGoal = 3.0;
+    let streakDays = 14;
+
+    function getGoalPresets(weightLbs) {
+      // Scales protein dynamically (1.0g - 1.1g per lb bodyweight)
+      const baseProtein = Math.round(weightLbs * 1.03);
+      return {
+        cut: {
+          name: 'CUT MODE',
+          calories: Math.round(weightLbs * 11.4),
+          protein: baseProtein,
+          carbs: Math.round(weightLbs * 0.97),
+          fat: 55
+        },
+        recomp: {
+          name: 'RECOMP MODE',
+          calories: Math.round(weightLbs * 14.0),
+          protein: Math.round(baseProtein * 0.98),
+          carbs: Math.round(weightLbs * 1.37),
+          fat: 65
+        },
+        bulk: {
+          name: 'BULK MODE',
+          calories: Math.round(weightLbs * 16.8),
+          protein: Math.round(baseProtein * 1.05),
+          carbs: Math.round(weightLbs * 1.88),
+          fat: 75
+        }
+      };
+    }
 
     // App State
     let currentGoalKey = 'cut';
@@ -1042,8 +1262,50 @@
     window.addEventListener('DOMContentLoaded', () => {
       // Pre-populate with one staple for immediate interactive feedback
       quickLog('Greek Yogurt & Berries', 280, 22, 34, 4, '🥣', false);
+      updateProfileUI();
       updateUI();
     });
+
+    // Profile Customizer Modal Handlers
+    function openProfileModal() {
+      document.getElementById('user-name-input').value = userProfile.name;
+      document.getElementById('user-mode-select').value = userProfile.mode;
+      document.getElementById('user-weight-input').value = userProfile.weight;
+      document.getElementById('profile-modal').classList.add('active');
+    }
+
+    function closeProfileModal() {
+      document.getElementById('profile-modal').classList.remove('active');
+    }
+
+    function saveProfileSettings() {
+      const name = document.getElementById('user-name-input').value.trim() || 'Athlete';
+      const mode = document.getElementById('user-mode-select').value;
+      const weight = parseInt(document.getElementById('user-weight-input').value) || 175;
+
+      userProfile.name = name;
+      userProfile.mode = mode;
+      userProfile.weight = weight;
+
+      updateProfileUI();
+      updateUI();
+      closeProfileModal();
+      showToast(`Updated! targets scaled for ${weight} lbs`);
+    }
+
+    function updateProfileUI() {
+      document.getElementById('user-display-name').innerText = `${userProfile.name} (${userProfile.mode})`;
+      document.getElementById('user-avatar-initial').innerText = userProfile.name.charAt(0).toUpperCase();
+      document.getElementById('water-val').innerText = `${waterIntake.toFixed(2)} / ${waterGoal} L`;
+      document.getElementById('streak-count').innerText = `${streakDays} Days`;
+    }
+
+    function addWater(amountL, event) {
+      if (event) event.stopPropagation();
+      waterIntake = Math.min(waterIntake + amountL, 5.0);
+      updateProfileUI();
+      showToast(`💧 Added +${amountL * 1000}ml Water!`);
+    }
 
     // Switch Goal (Cut, Recomp, Bulk)
     function setGoal(goalKey) {
@@ -1053,78 +1315,14 @@
       document.querySelectorAll('.goal-btn').forEach(btn => btn.classList.remove('active'));
       document.getElementById(`btn-${goalKey}`).classList.add('active');
 
-      showToast(`Switched to ${GOAL_PRESETS[goalKey].name}`);
+      const presets = getGoalPresets(userProfile.weight);
+      showToast(`Switched to ${presets[goalKey].name}`);
       updateUI();
-    }
-
-    function quickLog(name, calories, protein, carbs, fat, icon = '🍽️', notify = true) {
-      const entry = {
-        id: Date.now(),
-        name,
-        calories: parseInt(calories),
-        protein: parseInt(protein),
-        carbs: parseInt(carbs),
-        fat: parseInt(fat),
-        icon,
-        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-      };
-
-      foodLog.unshift(entry);
-      if (notify) showToast(`Logged ${name}! (+${calories} kcal)`);
-      updateUI();
-    }
-
-    function quickAddProtein() {
-      quickLog('Protein Boost', 100, 25, 0, 0, '⚡');
-    }
-
-    function deleteLog(id) {
-      foodLog = foodLog.filter(item => item.id !== id);
-      showToast('Entry removed');
-      updateUI();
-    }
-
-    function clearLog() {
-      foodLog = [];
-      showToast('Daily log reset');
-      updateUI();
-    }
-
-    // Modal controls
-    function openModal() {
-      document.getElementById('custom-modal').classList.add('active');
-    }
-
-    function closeModal() {
-      document.getElementById('custom-modal').classList.remove('active');
-    }
-
-    function saveCustomFood() {
-      const name = document.getElementById('custom-name').value.trim() || 'Custom Meal';
-      const cal = parseInt(document.getElementById('custom-cal').value) || 0;
-      const p = parseInt(document.getElementById('custom-p').value) || 0;
-      const c = parseInt(document.getElementById('custom-c').value) || 0;
-      const f = parseInt(document.getElementById('custom-f').value) || 0;
-
-      if (cal <= 0 && p <= 0 && c <= 0 && f <= 0) {
-        showToast('Please enter macro values');
-        return;
-      }
-
-      quickLog(name, cal, p, c, f, '🍱');
-
-      // Reset fields
-      document.getElementById('custom-name').value = '';
-      document.getElementById('custom-cal').value = '';
-      document.getElementById('custom-p').value = '';
-      document.getElementById('custom-c').value = '';
-      document.getElementById('custom-f').value = '';
-      
-      closeModal();
     }
 
     function updateUI() {
-      const target = GOAL_PRESETS[currentGoalKey];
+      const presets = getGoalPresets(userProfile.weight);
+      const target = presets[currentGoalKey];
 
       // Calculate totals
       const totals = foodLog.reduce((acc, curr) => {
